@@ -69,6 +69,7 @@ class AppViewState extends State<AppView> {
             home: widget.dashboard,
             debugShowCheckedModeBanner: false,
             navigatorKey: navigatorKey,
+            supportedLocales: const [Locale('en')],
             initialRoute: MainNavigatorState.initialRoute,
             onGenerateRoute: MainNavigatorState.onGenerateRoute,
             builder: (context, child) => BlocListener<AuthBloc, AuthState>(

@@ -12,6 +12,11 @@ class OnboardingPage {
 
   final List<OnboardingPage> onboardingPages = const [
     OnboardingPage(
+      title: "Direct Pay",
+      subtitle: "Pay with crypto across Africa effortlessly",
+      icon: "💳",
+    ),
+    OnboardingPage(
       title: "Accept Payments",
       subtitle: "Accept stablecoin payments hassle-free",
       icon: "👜",

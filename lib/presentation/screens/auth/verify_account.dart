@@ -37,13 +37,28 @@ class _VerifyAccountState extends State<VerifyAccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Verify Account")),
+      appBar: AppBar(title: const SizedBox()),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomTextField(
-                controller: codeController, label: 'Verification Code'),
+            const Text(
+              'Verify Account',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                height: 1.5,
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Enter the verification code sent to your email',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+            ),
             const SizedBox(height: 16),
             GestureDetector(
               onTap: _selectCountry,
@@ -58,6 +73,9 @@ class _VerifyAccountState extends State<VerifyAccount> {
                 ),
               ),
             ),
+            const SizedBox(height: 32),
+            CustomTextField(
+                controller: codeController, label: 'Verification Code'),
             const SizedBox(height: 16),
             AppButton(
                 text: "Verify Account",
@@ -68,10 +86,16 @@ class _VerifyAccountState extends State<VerifyAccount> {
                     (route) => false,
                   );
                 }),
-            TextButton(
-              onPressed: () {},
-              child: const Text("Resend code again"),
-            )
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Didn't receive the code?"),
+                LinkButton(
+                  onPressed: () {},
+                  text: 'Resend Code',
+                ),
+              ],
+            ),
           ],
         ),
       ),

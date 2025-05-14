@@ -11,28 +11,35 @@ part 'auth_state.dart';
 part 'auth_bloc.freezed.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc({required AuthRepository authRepo})
-      : _authRepo = authRepo,
+  AuthBloc({
+    required AuthRepository authRepo,
+  })  : _authRepository = authRepo,
         super(XAuthState.unauthenticated()) {
     on<AuthStatusChanged>(_onAuthStatusChanged);
     on<AuthSignoutRequested>(_onAuthSignoutRequested);
-
-    _authStatusSubscription = _authRepo.status.listen(
+    _authStatusSubscription = _authRepository.status.listen(
       (status) => add(AuthStatusChanged(status)),
     );
   }
 
-  final AuthRepository _authRepo;
+  final AuthRepository _authRepository;
   late StreamSubscription<AuthStatus> _authStatusSubscription;
+
+  @override
+  Future<void> close() {
+    _authStatusSubscription.cancel();
+    return super.close();
+  }
 
   Future<void> _onAuthStatusChanged(
     AuthStatusChanged event,
     Emitter<AuthState> emit,
   ) async {
     switch (event.status) {
-      case AuthStatus.unverified:
       case AuthStatus.unauthenticated:
         return emit(XAuthState.unauthenticated());
+      case AuthStatus.unverified:
+        return emit(XAuthState.unverified());
       case AuthStatus.authenticated:
         return emit(XAuthState.authenticated());
     }
@@ -42,12 +49,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthSignoutRequested event,
     Emitter<AuthState> emit,
   ) {
-    _authRepo.signOut();
-  }
-
-  @override
-  Future<void> close() {
-    _authStatusSubscription.cancel();
-    return super.close();
+    _authRepository.signOut();
   }
 }

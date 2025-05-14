@@ -12,7 +12,8 @@
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:pretium/core/di/injectable.dart' as _i721;
-import 'package:pretium/domain/prefs_repository.dart' as _i1057;
+import 'package:pretium/domain/auth_repository.dart' as _i668;
+import 'package:pretium/domain/prefs_repository.dart' as _i389;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -28,11 +29,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final registerModule = _$RegisterModule();
     await gh.singletonAsync<_i460.SharedPreferences>(
-      () => registerModule.prefrepo(),
+      () => registerModule.prefsRepository(),
       preResolve: true,
     );
-    gh.singleton<_i1057.PrefsRepository>(
-        () => _i1057.PrefsRepository(gh<_i460.SharedPreferences>()));
+    gh.lazySingleton<_i668.AuthRepository>(() => _i668.AuthRepository());
+    gh.singleton<_i389.PrefsRepository>(
+        () => _i389.PrefsRepository(gh<_i460.SharedPreferences>()));
     return this;
   }
 }

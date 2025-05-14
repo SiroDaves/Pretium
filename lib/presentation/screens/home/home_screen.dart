@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               CircleAvatar(child: Text("S")),
               SizedBox(width: 12),
-              Text("Hello, Siro 👋", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text("Hello, Siro Daves 👋", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             ],
           ),
           SizedBox(height: 20),

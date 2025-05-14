@@ -24,10 +24,12 @@ Future<void> configureDependencies(String environment) async {
 abstract class RegisterModule {
   @singleton
   @preResolve
-  Future<SharedPreferences> prefrepo() => SharedPreferences.getInstance();
+  Future<SharedPreferences> prefsRepository() =>
+      SharedPreferences.getInstance();
 }
 
 dynamic _parseAndDecode(String response) => jsonDecode(response);
 
-dynamic parseJson(String text) =>
-    compute<String, dynamic>(_parseAndDecode, text);
+dynamic parseJson(String text) {
+  return compute<String, dynamic>(_parseAndDecode, text);
+}

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/theme_colors.dart';
+
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String label;
   final bool obscureText;
+  final Widget? prefixIcon;
   final Widget? suffixIcon;
 
   const CustomTextField({
@@ -11,6 +14,7 @@ class CustomTextField extends StatelessWidget {
     required this.controller,
     required this.label,
     this.obscureText = false,
+    this.prefixIcon,
     this.suffixIcon,
   });
 
@@ -21,7 +25,9 @@ class CustomTextField extends StatelessWidget {
       obscureText: obscureText,
       decoration: InputDecoration(
         labelText: label,
-        border: const OutlineInputBorder(),
+        labelStyle: TextStyle(color: ThemeColors.primary),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+        prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
       ),
     );
